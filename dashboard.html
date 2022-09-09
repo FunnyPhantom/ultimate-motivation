@@ -14,11 +14,15 @@
 
 <script id="dob-template" type="text/x-handlebars-template">
   <form>
-    <h1 id="dob" class="age-label">When were you born?</h1>
-
     <footer>
-      <input type="date" name="dob" id="dob">
-      <input type="date" name="life-expectency"> 
+      <div>
+        <label id="dob" class="age-label" for="dob">When were you born?</label>
+        <input type="date" name="dob" id="dob">
+      </div>
+      <div>
+        <label id="dob" class="age-label" for="life-expectancy">what's your life expectancy?</label>
+        <input type="number" name="life-expectancy" id="life-expectancy">
+      </div>
       <button type="submit">Motivate</button>
     </footer>
   <form>

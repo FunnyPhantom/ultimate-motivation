@@ -23,17 +23,18 @@ var App = function($el){
 App.fn = App.prototype;
 
 App.fn.load = function(){
-  var value;
-  const lifeExpectency = localStorage.getItem(LIFE_EXPECTENCY);
-  if (value = localStorage.dob && lifeExpectency)
-    this.dob = new Date(parseInt(value));
-    this.lifeExpectency = new Date(parseInt(lifeExpectency))
+  var value = localStorage.dob;
+  const lifeExpectancy = localStorage.getItem(LIFE_EXPECTENCY);
+  console.log(lifeExpectancy)
+  if (value && lifeExpectancy)
+    this.dob = new Date(parseInt(value, 10));
+    this.lifeExpectency = parseInt(lifeExpectancy, 10)
 };
 
 App.fn.save = function(){
   if (this.dob && this.lifeExpectency) {
     localStorage.dob = this.dob.getTime();
-    localStorage.setItem(LIFE_EXPECTENCY, this.lifeExpectency.getTime());
+    localStorage.setItem(LIFE_EXPECTENCY, this.lifeExpectency.toString());
   }
 };
 
@@ -41,11 +42,11 @@ App.fn.submit = function(e){
   e.preventDefault();
 
   var input = this.$$('input')[0];
-  var lifeExpectencyInput = this.$$("input")[1];
-  if ( !input.valueAsDate && !lifeExpectencyInput.valueAsDate ) return;
+  var lifeExpectancyInput = this.$$("input")[1];
+  if ( !input.valueAsDate && !lifeExpectancyInput.valueAsNumber ) return;
 
   this.dob = input.valueAsDate;
-  this.lifeExpectency = lifeExpectencyInput.valueAsDate
+  this.lifeExpectency = lifeExpectancyInput.valueAsNumber
   this.save();
   this.renderAgeLoop();
 };
@@ -60,7 +61,9 @@ App.fn.renderAgeLoop = function(){
 
 App.fn.renderAge = function(){
   var now       = new Date();
-  var duration  = this.lifeExpectency -  (now - this.dob);
+  var future = new Date(this.dob);
+  future.setFullYear(future.getFullYear() + this.lifeExpectency)
+  var duration  = future - now;
   var years     = duration / 31556900000;
 
   var majorMinor = years.toFixed(9).toString().split('.');
