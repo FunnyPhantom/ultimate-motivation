@@ -1,5 +1,7 @@
 (function(){
 
+var LIFE_EXPECTENCY = "lifeExpectency";
+
 var $  = document.getElementById.bind(document);
 var $$ = document.querySelectorAll.bind(document);
 
@@ -11,7 +13,7 @@ var App = function($el){
     'submit', this.submit.bind(this)
   );
 
-  if (this.dob) {
+  if (this.dob && this.lifeExpectency) {
     this.renderAgeLoop();
   } else {
     this.renderChoose();
@@ -22,23 +24,28 @@ App.fn = App.prototype;
 
 App.fn.load = function(){
   var value;
-
-  if (value = localStorage.dob)
+  const lifeExpectency = localStorage.getItem(LIFE_EXPECTENCY);
+  if (value = localStorage.dob && lifeExpectency)
     this.dob = new Date(parseInt(value));
+    this.lifeExpectency = new Date(parseInt(lifeExpectency))
 };
 
 App.fn.save = function(){
-  if (this.dob)
+  if (this.dob && this.lifeExpectency) {
     localStorage.dob = this.dob.getTime();
+    localStorage.setItem(LIFE_EXPECTENCY, this.lifeExpectency.getTime());
+  }
 };
 
 App.fn.submit = function(e){
   e.preventDefault();
 
   var input = this.$$('input')[0];
-  if ( !input.valueAsDate ) return;
+  var lifeExpectencyInput = this.$$("input")[1];
+  if ( !input.valueAsDate && !lifeExpectencyInput.valueAsDate ) return;
 
   this.dob = input.valueAsDate;
+  this.lifeExpectency = lifeExpectencyInput.valueAsDate
   this.save();
   this.renderAgeLoop();
 };
@@ -52,8 +59,8 @@ App.fn.renderAgeLoop = function(){
 };
 
 App.fn.renderAge = function(){
-  var now       = new Date
-  var duration  = now - this.dob;
+  var now       = new Date();
+  var duration  = this.lifeExpectency -  (now - this.dob);
   var years     = duration / 31556900000;
 
   var majorMinor = years.toFixed(9).toString().split('.');
