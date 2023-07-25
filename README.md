@@ -1,9 +1,9 @@
 ULTIMATE Motivation
 ========
 
-Did you get motivated by seeing how long you lived? 
+Do you get motivated by seeing how long you've lived? 
 
-Say. No. More.
+Say No More!
 
 NOW you can get ULTIMATELY Motivated by seeing how long you have LEFT!
 
