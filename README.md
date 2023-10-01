@@ -5,7 +5,7 @@ Do you get motivated by seeing how long you've lived?
 
 Say No More!
 
-NOW you can get ULTIMATELY Motivated by seeing how long you have LEFT!
+NOW you can get ULTIMATELY Motivated by seeing how much you have LEFT!
 
 Enter Your age. and you Life expectency. 
 
